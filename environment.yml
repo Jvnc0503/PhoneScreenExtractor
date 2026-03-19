@@ -1,0 +1,9 @@
+name: phonescreenextractor
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.13
+  - opencv
+  - numpy
+  - pip
