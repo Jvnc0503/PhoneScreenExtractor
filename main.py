@@ -118,8 +118,8 @@ def extract(image: np.ndarray) -> np.ndarray:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Extract phone screen from a photo.")
-    parser.add_argument("input", help="Input image path")
-    parser.add_argument("output", help="Output image path")
+    parser.add_argument("--input", help="Input image path")
+    parser.add_argument("--output", default="output/img.png", help="Output image path")
     args = parser.parse_args()
 
     image = cv2.imread(args.input)
