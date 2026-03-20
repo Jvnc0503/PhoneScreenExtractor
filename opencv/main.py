@@ -131,6 +131,8 @@ def main() -> None:
 
     result = extract(image)
     output_folder = Path(args.output)
+    if not output_folder.exists():
+        output_folder.mkdir(parents=True, exist_ok=True)
     output_file = output_folder / input_file
     ok = cv2.imwrite(output_file, result)
     if not ok:
