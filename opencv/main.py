@@ -1,6 +1,7 @@
 import argparse
 import cv2
 import numpy as np
+from pathlib import Path
 
 def order_corners(corners: np.ndarray) -> np.ndarray:
     """Return corners ordered as top-left, top-right, bottom-right, bottom-left."""
@@ -119,15 +120,19 @@ def extract(image: np.ndarray) -> np.ndarray:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Extract phone screen from a photo.")
     parser.add_argument("--input", help="Input image path")
-    parser.add_argument("--output", default="output/img.png", help="Output image path")
+    parser.add_argument("--output", default="output/", help="Output image path")
     args = parser.parse_args()
 
-    image = cv2.imread(args.input)
+    input_path = Path(args.input)
+    input_file = Path(input_path.name)
+    image = cv2.imread(input_path)
     if image is None:
         raise ValueError(f"Could not read input image: {args.input}")
 
     result = extract(image)
-    ok = cv2.imwrite(args.output, result)
+    output_folder = Path(args.output)
+    output_file = output_folder / input_file
+    ok = cv2.imwrite(output_file, result)
     if not ok:
         raise ValueError(f"Could not write output image: {args.output}")
 
